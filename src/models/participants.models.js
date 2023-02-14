@@ -18,7 +18,7 @@ const Participants = db.define("participants", {
             key: "id"
         }
     },
-    convesrationId: {
+    conversationId: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {

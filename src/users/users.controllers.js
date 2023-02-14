@@ -37,7 +37,7 @@ const updateUser = async (id,userObj) => {
             id:id
         }
     })
-    return data
+    return data[0]
 }
 
 const deleteUser = async (id) => {

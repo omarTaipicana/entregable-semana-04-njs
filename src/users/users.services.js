@@ -26,20 +26,30 @@ const getUserById = (req, res) => {
     const id = req.params.id
     usersConrollers.finUserById(id)
     .then(data => {
-        responseHandlres.success({
-            res,
-            data,
-            status: 200,
-            message: 'User found',
-            data: data
-        })
-    })
+        if(data){
+         responseHandlres.success({
+             res,
+             data,
+             status: 200,
+             message: 'User found succesfully',
+             data: data
+         })
+        }else{
+         responseHandlres.success({
+             res,
+             data,
+             status: 200,
+             message: 'invalid id',
+             data: data
+         })
+        }
+     })
     .catch(error => {
         responseHandlres.error({
             res,
             data: error,
             status: 400,
-            message: "invalid id",
+            message: "Not found",
         })
     })
 }
@@ -62,7 +72,15 @@ const postUser = (req, res) => {
             res,
             data: error,
             status: 400,
-            message: 'not found',
+            message: 'Not found',
+            fields: {
+                firstName : 'String',
+                lastName : 'String',
+                email: 'example@example.com',
+                password: 'String',
+                profileImage: 'example.com/image.png',
+                phone : '+52 1234 123 123'
+            }
         })
     })
 }
@@ -72,7 +90,7 @@ const patchUser = (req, res) => {
     const userObj = req.body
     usersConrollers.updateUser(id, userObj)
     .then(data => {
-       if(data[0]){
+       if(data){
         responseHandlres.success({
             res,
             data,
@@ -95,7 +113,7 @@ const patchUser = (req, res) => {
             res,
             data: error,
             status: 400,
-            message: 'not found',
+            message: 'Not found',
         })
     })
 }
@@ -127,7 +145,7 @@ const deleteUser = (req, res) => {
              res,
              data: error,
              status: 400,
-             message: 'not found',
+             message: 'Not found',
          })
      })
 }
